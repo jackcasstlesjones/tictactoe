@@ -1,0 +1,17 @@
+.gameboard-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 400px;
+  height: 400px;
+  margin: auto;
+}
+
+.game-square {
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  width: 200px;
+  height: 200px;
+}

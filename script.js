@@ -5,14 +5,25 @@ selectDropDown.addEventListener("change", function () {
   currentPlayer.takeTurn();
 });
 
+const gameboardContainer = document.getElementById("gameboard-container");
+
 let activePlayer = "";
 
 const gameBoardModule = (function () {
-  const gameBoardArray = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  const gameBoardArray = [, , , , , , , ,];
   return { gameBoardArray };
 })();
 let gameBoard = gameBoardModule.gameBoardArray;
-// console.log(gameBoard);
+
+const populateBoardModule = (function () {
+  const gridSquares = document.querySelectorAll(".game-square");
+  const showOnBoard = function () {
+    for (let i = 0; i < gameBoard.length; i++) {
+      gridSquares[i].textContent = gameBoard[i];
+    }
+  };
+  return { showOnBoard };
+})();
 
 function playerFactory(name, playerMarker) {
   return {
@@ -20,9 +31,10 @@ function playerFactory(name, playerMarker) {
     name,
     takeTurn() {
       this.turnCounter++;
-      gameBoard.splice(selectDropDown.value, 1, playerMarker);
+      gameBoard.splice(selectDropDown.value - 1, 1, playerMarker);
       console.log(gameBoard);
       console.log(this.turnCounter);
+      populateBoardModule.showOnBoard();
       return this.turnCounter;
     },
   };
