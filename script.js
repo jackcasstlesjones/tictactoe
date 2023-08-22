@@ -1,6 +1,8 @@
 const selectDropDown = document.getElementById("number");
 selectDropDown.addEventListener("change", function () {
-  player2.takeTurn();
+  currentPlayer = gameFlowModule.choosePlayer();
+  console.log(currentPlayer);
+  currentPlayer.takeTurn();
 });
 
 let activePlayer = "";
@@ -19,7 +21,7 @@ function playerFactory(name, playerMarker) {
     takeTurn() {
       this.turnCounter++;
       gameBoard.splice(selectDropDown.value, 1, playerMarker);
-      //   console.log(gameBoard);
+      console.log(gameBoard);
       console.log(this.turnCounter);
       return this.turnCounter;
     },
@@ -28,12 +30,16 @@ function playerFactory(name, playerMarker) {
 
 player1 = playerFactory("Jack", "X");
 player2 = playerFactory("Beans", "O");
-console.log(player1.turnCounter);
-
-console.log(player1.turnCounter);
 
 const gameFlowModule = (function () {
-  if (player1.turnCounter > player2.turnCounter) {
-    console.log("player 2's go");
-  } else console.log("player 1's go");
+  const choosePlayer = function () {
+    if (player1.turnCounter > player2.turnCounter) {
+      return player2;
+    } else {
+      return player1;
+    }
+  };
+  return { choosePlayer };
 })();
+
+gameFlowModule.choosePlayer();
