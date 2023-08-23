@@ -18,14 +18,22 @@ const populateBoardModule = (function () {
   return { showOnBoard };
 })();
 
-for (let i = 0; i < gridSquares.length; i++) {
-  gridSquares[i].addEventListener("click", function () {
-    console.log("poo");
-    currentPlayer = gameFlowModule.choosePlayer();
-    // console.log(currentPlayer);
-    currentPlayer.takeTurn(i);
-  });
+function displayOnGrid() {
+  for (let i = 0; i < gridSquares.length; i++) {
+    gridSquares[i].addEventListener("click", function () {
+      if (
+        gridSquares[i].textContent === "X" ||
+        gridSquares[i].textContent === "O"
+      ) {
+        return;
+      }
+      console.log(gridSquares[i]);
+      currentPlayer = gameFlowModule.choosePlayer();
+      currentPlayer.takeTurn(i);
+    });
+  }
 }
+displayOnGrid();
 
 function playerFactory(name, playerMarker) {
   return {
