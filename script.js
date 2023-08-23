@@ -20,6 +20,8 @@ function playerFactory(name, playerMarker) {
   };
 }
 
+////////// Check winner ////////////
+
 ////////////// Game Flow Module /////////////////
 
 const gameFlowModule = (function () {
@@ -45,10 +47,47 @@ const gameFlowModule = (function () {
         }
         currentPlayer = gameFlowModule.choosePlayer();
         currentPlayer.takeTurn(i);
+        checkWin();
       });
     }
   };
-  return { gridSquaresEventListener, choosePlayer, showOnBoard };
+
+  function checkWin() {
+    let indexesX = [];
+    let indexesO = [];
+    for (let i = 0; i < gameBoard.length; i++) {
+      if (gameBoard[i] === "X") {
+        indexesX.push(i);
+      } else if (gameBoard[i] === "O") {
+        indexesO.push(i);
+      }
+    }
+    if (
+      (indexesX.includes(0) && indexesX.includes(1) && indexesX.includes(2)) ||
+      (indexesX.includes(3) && indexesX.includes(4) && indexesX.includes(5)) ||
+      (indexesX.includes(6) && indexesX.includes(7) && indexesX.includes(8)) ||
+      (indexesX.includes(0) && indexesX.includes(3) && indexesX.includes(6)) ||
+      (indexesX.includes(1) && indexesX.includes(4) && indexesX.includes(7)) ||
+      (indexesX.includes(2) && indexesX.includes(5) && indexesX.includes(8)) ||
+      (indexesX.includes(0) && indexesX.includes(4) && indexesX.includes(8)) ||
+      (indexesX.includes(2) && indexesX.includes(4) && indexesX.includes(6))
+    ) {
+      return console.log("X Is Winner");
+    } else if (
+      (indexesO.includes(0) && indexesO.includes(1) && indexesO.includes(2)) ||
+      (indexesO.includes(3) && indexesO.includes(4) && indexesO.includes(5)) ||
+      (indexesO.includes(6) && indexesO.includes(7) && indexesO.includes(8)) ||
+      (indexesO.includes(0) && indexesO.includes(3) && indexesO.includes(6)) ||
+      (indexesO.includes(1) && indexesO.includes(4) && indexesO.includes(7)) ||
+      (indexesO.includes(2) && indexesO.includes(5) && indexesO.includes(8)) ||
+      (indexesO.includes(0) && indexesO.includes(4) && indexesO.includes(8)) ||
+      (indexesO.includes(2) && indexesO.includes(4) && indexesO.includes(6))
+    ) {
+      return console.log("O Is Winner");
+    }
+  }
+
+  return { gridSquaresEventListener, choosePlayer, showOnBoard, checkWin };
 })();
 
 gameFlowModule.gridSquaresEventListener();
