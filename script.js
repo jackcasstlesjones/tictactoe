@@ -1,4 +1,23 @@
 const gridSquares = document.querySelectorAll(".game-square");
+const resultsDiv = document.getElementById("results-div");
+const playerOneNameInput = document.getElementById("player-one");
+const playerTwoNameInput = document.getElementById("player-two");
+const submitBtn = document.getElementById("submit-button");
+
+let playerOneName = "";
+let playerTwoName = "";
+
+submitBtn.addEventListener("click", function () {
+  playerOneName = getPlayerOneName();
+  playerTwoName = getPlayerTwoName();
+});
+
+function getPlayerOneName() {
+  return playerOneNameInput.value;
+}
+function getPlayerTwoName() {
+  return playerTwoNameInput.value;
+}
 
 const gameBoardModule = (function () {
   const gameBoardArray = [, , , , , , , ,];
@@ -73,7 +92,7 @@ const gameFlowModule = (function () {
       (indexesX.includes(0) && indexesX.includes(4) && indexesX.includes(8)) ||
       (indexesX.includes(2) && indexesX.includes(4) && indexesX.includes(6))
     ) {
-      return console.log("X Is Winner");
+      return (resultsDiv.textContent = `${player1.name} is winner!`);
     } else if (
       (indexesO.includes(0) && indexesO.includes(1) && indexesO.includes(2)) ||
       (indexesO.includes(3) && indexesO.includes(4) && indexesO.includes(5)) ||
@@ -84,9 +103,9 @@ const gameFlowModule = (function () {
       (indexesO.includes(0) && indexesO.includes(4) && indexesO.includes(8)) ||
       (indexesO.includes(2) && indexesO.includes(4) && indexesO.includes(6))
     ) {
-      return console.log("O Is Winner");
+      return (resultsDiv.textContent = `${player2.name} is winner!`);
     } else if (gameBoard.includes(undefined) === false) {
-      return console.log("It's a draw");
+      return (resultsDiv.textContent = "It's a draw!");
     }
   }
 
@@ -95,4 +114,4 @@ const gameFlowModule = (function () {
 
 gameFlowModule.gridSquaresEventListener();
 player1 = playerFactory("Jack", "X");
-player2 = playerFactory("Beans", "O");
+player2 = playerFactory("Claire", "O");

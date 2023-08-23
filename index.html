@@ -3,21 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Tic-Tac-Toe</title>
     <script defer src="script.js"></script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="gameboard-container" class="gameboard-container">
-      <div id="game-square-0" class="game-square"></div>
-      <div id="game-square-1" class="game-square"></div>
-      <div id="game-square-2" class="game-square"></div>
-      <div id="game-square-3" class="game-square"></div>
-      <div id="game-square-4" class="game-square"></div>
-      <div id="game-square-5" class="game-square"></div>
-      <div id="game-square-6" class="game-square"></div>
-      <div id="game-square-7" class="game-square"></div>
-      <div id="game-square-8" class="game-square"></div>
+    <div class="wrapper">
+      <div class="info-container">
+        <form action="">
+          <label for="player-one">Enter Player One Name</label>
+          <input
+            placeholder="Ratimus Maximus..."
+            type="text"
+            name="player-one"
+            id="player-one"
+          />
+          <label for="player-two">Enter Player Two Name</label>
+          <input
+            placeholder="Beans MCghee..."
+            type="text"
+            name="player-two"
+            id="player-two"
+          />
+          <button id="submit-button" type="submit">Submit player names</button>
+        </form>
+        <p id="results-div" class="results-div"></p>
+      </div>
+      <div id="gameboard-container" class="gameboard-container">
+        <div id="game-square-0" class="game-square"></div>
+        <div id="game-square-1" class="game-square"></div>
+        <div id="game-square-2" class="game-square"></div>
+        <div id="game-square-3" class="game-square"></div>
+        <div id="game-square-4" class="game-square"></div>
+        <div id="game-square-5" class="game-square"></div>
+        <div id="game-square-6" class="game-square"></div>
+        <div id="game-square-7" class="game-square"></div>
+        <div id="game-square-8" class="game-square"></div>
+      </div>
     </div>
   </body>
 </html>
