@@ -53,6 +53,7 @@ const gameFlowModule = (function () {
   };
 
   function checkWin() {
+    console.log(gameBoard);
     let indexesX = [];
     let indexesO = [];
     for (let i = 0; i < gameBoard.length; i++) {
@@ -84,6 +85,8 @@ const gameFlowModule = (function () {
       (indexesO.includes(2) && indexesO.includes(4) && indexesO.includes(6))
     ) {
       return console.log("O Is Winner");
+    } else if (gameBoard.includes(undefined) === false) {
+      return console.log("It's a draw");
     }
   }
 
