@@ -1,7 +1,4 @@
-const gameboardContainer = document.getElementById("gameboard-container");
 const gridSquares = document.querySelectorAll(".game-square");
-
-let activePlayer = "";
 
 const gameBoardModule = (function () {
   const gameBoardArray = [, , , , , , , ,];
@@ -9,29 +6,7 @@ const gameBoardModule = (function () {
 })();
 let gameBoard = gameBoardModule.gameBoardArray;
 
-const populateBoardModule = (function () {
-  const showOnBoard = function () {
-    for (let i = 0; i < gameBoard.length; i++) {
-      gridSquares[i].textContent = gameBoard[i];
-    }
-  };
-  return { showOnBoard };
-})();
-
-function displayOnGrid() {
-  for (let i = 0; i < gridSquares.length; i++) {
-    gridSquares[i].addEventListener("click", function () {
-      if (gameBoard[i] === "X" || gameBoard[i] === "O") {
-        return;
-      }
-      console.log(gridSquares[i]);
-      currentPlayer = gameFlowModule.choosePlayer();
-      currentPlayer.takeTurn(i);
-    });
-  }
-}
-displayOnGrid();
-
+/////////////// Player Objects ///////////////
 function playerFactory(name, playerMarker) {
   return {
     turnCounter: 0,
@@ -39,14 +14,13 @@ function playerFactory(name, playerMarker) {
     takeTurn(i) {
       this.turnCounter++;
       gameBoard.splice(i, 1, playerMarker);
-      populateBoardModule.showOnBoard();
+      gameFlowModule.showOnBoard();
       return this.turnCounter;
     },
   };
 }
 
-player1 = playerFactory("Jack", "X");
-player2 = playerFactory("Beans", "O");
+////////////// Game Flow Module /////////////////
 
 const gameFlowModule = (function () {
   const choosePlayer = function () {
@@ -56,5 +30,27 @@ const gameFlowModule = (function () {
       return player1;
     }
   };
-  return { choosePlayer };
+
+  const showOnBoard = function () {
+    for (let i = 0; i < gameBoard.length; i++) {
+      gridSquares[i].textContent = gameBoard[i];
+    }
+  };
+
+  const gridSquaresEventListener = function () {
+    for (let i = 0; i < gridSquares.length; i++) {
+      gridSquares[i].addEventListener("click", function () {
+        if (gameBoard[i] === "X" || gameBoard[i] === "O") {
+          return;
+        }
+        currentPlayer = gameFlowModule.choosePlayer();
+        currentPlayer.takeTurn(i);
+      });
+    }
+  };
+  return { gridSquaresEventListener, choosePlayer, showOnBoard };
 })();
+
+gameFlowModule.gridSquaresEventListener();
+player1 = playerFactory("Jack", "X");
+player2 = playerFactory("Beans", "O");
