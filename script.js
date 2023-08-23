@@ -21,10 +21,7 @@ const populateBoardModule = (function () {
 function displayOnGrid() {
   for (let i = 0; i < gridSquares.length; i++) {
     gridSquares[i].addEventListener("click", function () {
-      if (
-        gridSquares[i].textContent === "X" ||
-        gridSquares[i].textContent === "O"
-      ) {
+      if (gameBoard[i] === "X" || gameBoard[i] === "O") {
         return;
       }
       console.log(gridSquares[i]);
@@ -42,8 +39,6 @@ function playerFactory(name, playerMarker) {
     takeTurn(i) {
       this.turnCounter++;
       gameBoard.splice(i, 1, playerMarker);
-      //   console.log(gameBoard);
-      //   console.log(this.turnCounter);
       populateBoardModule.showOnBoard();
       return this.turnCounter;
     },
@@ -63,5 +58,3 @@ const gameFlowModule = (function () {
   };
   return { choosePlayer };
 })();
-
-gameFlowModule.choosePlayer();

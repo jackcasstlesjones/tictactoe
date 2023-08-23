@@ -3,7 +3,7 @@
   grid-template-columns: repeat(3, 1fr);
   width: 400px;
   height: 400px;
-  margin: auto;
+  margin: 100px auto;
 }
 
 .game-square {
