@@ -1,11 +1,5 @@
-const selectDropDown = document.getElementById("number");
-selectDropDown.addEventListener("change", function () {
-  currentPlayer = gameFlowModule.choosePlayer();
-  console.log(currentPlayer);
-  currentPlayer.takeTurn();
-});
-
 const gameboardContainer = document.getElementById("gameboard-container");
+const gridSquares = document.querySelectorAll(".game-square");
 
 let activePlayer = "";
 
@@ -16,7 +10,6 @@ const gameBoardModule = (function () {
 let gameBoard = gameBoardModule.gameBoardArray;
 
 const populateBoardModule = (function () {
-  const gridSquares = document.querySelectorAll(".game-square");
   const showOnBoard = function () {
     for (let i = 0; i < gameBoard.length; i++) {
       gridSquares[i].textContent = gameBoard[i];
@@ -25,15 +18,24 @@ const populateBoardModule = (function () {
   return { showOnBoard };
 })();
 
+for (let i = 0; i < gridSquares.length; i++) {
+  gridSquares[i].addEventListener("click", function () {
+    console.log("poo");
+    currentPlayer = gameFlowModule.choosePlayer();
+    // console.log(currentPlayer);
+    currentPlayer.takeTurn(i);
+  });
+}
+
 function playerFactory(name, playerMarker) {
   return {
     turnCounter: 0,
     name,
-    takeTurn() {
+    takeTurn(i) {
       this.turnCounter++;
-      gameBoard.splice(selectDropDown.value - 1, 1, playerMarker);
-      console.log(gameBoard);
-      console.log(this.turnCounter);
+      gameBoard.splice(i, 1, playerMarker);
+      //   console.log(gameBoard);
+      //   console.log(this.turnCounter);
       populateBoardModule.showOnBoard();
       return this.turnCounter;
     },
