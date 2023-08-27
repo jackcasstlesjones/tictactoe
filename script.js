@@ -3,13 +3,12 @@ const resultsDiv = document.getElementById("results-div");
 const playerOneNameInput = document.getElementById("player-one");
 const playerTwoNameInput = document.getElementById("player-two");
 const submitBtn = document.getElementById("submit-button");
+const restartBtn = document.getElementById("restart-button");
 
-let playerOneName = "";
-let playerTwoName = "";
-
-submitBtn.addEventListener("click", function () {
-  playerOneName = getPlayerOneName();
-  playerTwoName = getPlayerTwoName();
+submitBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+  player1.name = getPlayerOneName();
+  player2.name = getPlayerTwoName();
 });
 
 function getPlayerOneName() {
@@ -20,7 +19,7 @@ function getPlayerTwoName() {
 }
 
 const gameBoardModule = (function () {
-  const gameBoardArray = [, , , , , , , ,];
+  const gameBoardArray = [, , , , , , , , ,];
   return { gameBoardArray };
 })();
 let gameBoard = gameBoardModule.gameBoardArray;
@@ -109,9 +108,24 @@ const gameFlowModule = (function () {
     }
   }
 
+  function restartGame() {
+    for (let i = 0; i < gridSquares.length; i++) {
+      gridSquares[i].textContent = "";
+    }
+    gameBoard = [, , , , , , , , ,];
+    player1.name = "";
+    player2.name = "";
+    player1.turnCounter = 0;
+    player2.turnCounter = 0;
+
+    resultsDiv.textContent = "";
+  }
+
+  restartBtn.addEventListener("click", restartGame);
+
   return { gridSquaresEventListener, choosePlayer, showOnBoard, checkWin };
 })();
 
 gameFlowModule.gridSquaresEventListener();
 player1 = playerFactory("Jack", "X");
-player2 = playerFactory("Claire", "O");
+player2 = playerFactory("Isobel", "O");
